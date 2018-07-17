@@ -32,9 +32,9 @@
           <q-item-side icon="chat" />
           <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg" />
         </q-item>
-        <q-item @click.native="openURL('http://forum.quasar-framework.org')">
-          <q-item-side icon="record_voice_over" />
-          <q-item-main label="Forum" sublabel="forum.quasar-framework.org" />
+        <q-item to="/stockout">
+          <q-item-side icon="store" />
+          <q-item-main label="Xuất Kho" sublabel="Quản Lý Xuất Kho" />
         </q-item>
         <q-item @click.native="openURL('https://twitter.com/quasarframework')">
           <q-item-side icon="rss feed" />

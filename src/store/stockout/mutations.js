@@ -13,8 +13,8 @@ export const setSelected = (state, payload) => {
 }
 
 export const setEditingRec = (state, payload) => {
-  state.editingRec = payload
-  state.backupRec = _d.clone(payload)
+  // state.editingRec = payload
+  // state.backupRec = _d.clone(payload)
   state.isModalOpened = true
 }
 

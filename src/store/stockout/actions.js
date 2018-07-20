@@ -22,9 +22,30 @@ export const fetchRecs = ({commit}) => {
     })
 }
 
+// Only fetch products in stock table, include which products have quantity = 0
+export const fetchProducts = ({commit}) => {
+  commit('setIsLoading', true)
+  _get(`{
+    listProductsInStock{
+      quantity
+      stockId
+    }
+  }`)
+    .then(({data}) => {
+      _alert('Success', 'positive')
+      commit('setProducts', data.listProductInStock)
+      commit('setIsLoading', false)
+    })
+    .catch(err => {
+      console.log(err)
+      _alert(`Code: ${err.response.status} - ${err.response.statusText}`, 'negative')
+      commit('setIsLoading', false)
+    })
+}
+
 export const deleteRecs = ({commit, getters}) => {
   commit('setIsLoading', true)
-  let ids = Array.from(getters.getSelected, supplier => supplier.id)
+  let ids = Array.from(getters.getSelected, stockout => stockout.id)
   _post(
     ids,
     `mutation ($input: [Int]) {

@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLInputObjectType, GraphQLInt, GraphQLString, GraphQLNonNull} from 'graphql'
+import {GraphQLObjectType, GraphQLInputObjectType, GraphQLInt, GraphQLFloat, GraphQLNonNull} from 'graphql'
 export const StockOut = new GraphQLObjectType({
   name: 'StockOut',
   description: 'StockOut Information ...',
@@ -19,7 +19,7 @@ export const StockOut = new GraphQLObjectType({
         },
       },
       quantity: {
-        type: GraphQLString,
+        type: GraphQLFloat,
         resolve(stockout) {
           return stockout.quantity
         },
@@ -40,7 +40,7 @@ export const StockOutInput = new GraphQLInputObjectType({
       type: new GraphQLNonNull(GraphQLInt),
     },
     quantity: {
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLFloat),
     },
   }),
 })

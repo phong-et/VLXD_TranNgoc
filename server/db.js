@@ -46,23 +46,23 @@ const Supplier = Conn.define('supplier', {
 const Stock = Conn.define('stock',{
   //productId:{type: Sequelize.INTEGER, allowNull: false},
   price:{type: Sequelize.INTEGER, allowNull: true},
-  quantity:{type: Sequelize.INTEGER, allowNull: true},
+  quantity:{type: Sequelize.FLOAT, allowNull: true},
 })
 
 const StockIn = Conn.define('stockin',{
   //productId:{type: Sequelize.INTEGER, allowNull: false},
   //supplierId:{type: Sequelize.INTEGER, allowNull: false},
   price:{type: Sequelize.INTEGER, allowNull: true},
-  quantity:{type: Sequelize.INTEGER, allowNull: true},
+  quantity:{type: Sequelize.FLOAT, allowNull: true},
 })
 
 const StockOut = Conn.define('stockout',{
   //stockId:{type: Sequelize.INTEGER, allowNull: false},
-  quantity:{type: Sequelize.INTEGER, allowNull: true},
+  quantity:{type: Sequelize.FLOAT, allowNull: true},
 })
 
-Product.hasMany(Stock);
-Product.hasMany(StockIn);
+Product.hasMany(Stock)
+Product.hasMany(StockIn)
 Stock.hasMany(StockOut)
 
 Conn.authenticate()

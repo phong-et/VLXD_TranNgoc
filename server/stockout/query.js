@@ -8,15 +8,33 @@ export default {
     {
       listStockOut {
         id
-        name
-        taxcode
-        address
-        phone
+        stockId
+        quantity
       }
     }`,
     type: new GraphQLList(StockOut),
     resolve() {
       return db.models.stockout.findAll()
+    },
+  },
+  listProductsInStock: {
+    description: `List all Products In Stocks ###
+    {
+      listProductsInStock {
+        quantity
+        productId
+        productName
+      }
+    }`,
+    type: new GraphQLList(StockOut),
+    resolve() {
+      return db.models.stockout.findAll({
+          include: [{
+            model: models.product,
+            required: true,
+            attributes: [["name", "productName"]]
+          }]
+        })
     },
   },
 }

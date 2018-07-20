@@ -6,6 +6,8 @@ export default {
   backupRec: {},
   selected: [],
   recs: [],
+  // customize stockout form
+  products: [],
   icon: 'store',
   cols: [
     {

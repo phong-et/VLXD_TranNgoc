@@ -22,8 +22,6 @@ export default {
     {
       listProductsInStock {
         quantity
-        productId
-        productName
       }
     }`,
     type: new GraphQLList(StockOut),

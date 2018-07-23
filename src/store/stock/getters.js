@@ -2,10 +2,6 @@ export const getRecs = state => {
   return state.recs
 }
 
-export const getProducts = state => {
-  return state.products
-}
-
 export const getCols = state => {
   return state.cols
 }

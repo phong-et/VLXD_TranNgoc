@@ -1,4 +1,5 @@
 import {GraphQLObjectType, GraphQLInputObjectType, GraphQLInt, GraphQLFloat, GraphQLNonNull} from 'graphql'
+
 export const Stock = new GraphQLObjectType({
   name: 'Stock',
   description: 'Stock Information ...',

@@ -13,7 +13,7 @@ export const fetchRecs = ({commit}) => {
   }`)
     .then(({data}) => {
       _alert('Success', 'positive')
-      commit('setRecs', data.listStockOut)
+      commit('setRecs', data.listStock)
       commit('setIsLoading', false)
     })
     .catch(err => {

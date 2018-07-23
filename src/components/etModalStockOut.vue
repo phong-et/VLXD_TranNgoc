@@ -1,5 +1,5 @@
 <template>
-  <q-modal no-backdrop-dismiss no-esc-dismiss v-model="isModalOpened" @show="fetchProducts" :content-css="{minWidth:'75vw', minHeight:'80vh'}">
+  <q-modal no-backdrop-dismiss no-esc-dismiss v-model="isModalOpened" :content-css="{minWidth:'75vw', minHeight:'80vh'}">
     <q-modal-layout>
         <q-toolbar slot="header" color="tertiary">
           <q-btn
@@ -23,7 +23,7 @@
             <div class="col-xs-12 col-md-7">
                 <q-select filter  stack-label="Sản phẩm" placeholder="Nhập tên sản phẩm cần tìm"
                   v-model="selectedProduct"
-                  :options="getProducts"
+                  :options="getRecsStock"
                 />
             </div>
             <div class="col-xs-12 col-md-2">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {mapState, mapActions, mapMutations} from 'vuex'
+import {mapState, mapActions, mapMutations, mapGetters} from 'vuex'
 export default {
   props: {
     type: {
@@ -64,10 +64,8 @@ export default {
   },
   computed: {
     // ...mapGetters('product', ['getFields', 'getEditingRec']),
+    ...mapGetters('stock', {getRecsStock: 'getRecs'}),
     ...mapState({
-      getProducts(state, getters) {
-        return getters[this.type + '/getProducts']
-      },
       getIsLoading(state, getters) {
         return getters[this.type + '/getIsLoading']
       },
@@ -92,9 +90,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchProducts(dispatch, payload) {
-        return dispatch(this.type + '/fetchProducts', payload)
-      },
       updateRec(dispatch, payload) {
         return dispatch(this.type + '/updateRec', payload)
       },

@@ -28,9 +28,9 @@
           <q-item-side icon="store" />
           <q-item-main label="Nhà Cung Cấp" sublabel="Liệt Kê & Tìm Kiếm Nhà Cung Cấp" />
         </q-item>
-        <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
-          <q-item-side icon="chat" />
-          <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg" />
+        <q-item to="/stock">
+          <q-item-side icon="store" />
+          <q-item-main label="Kho" sublabel="Quản Lý Kho" />
         </q-item>
         <q-item to="/stockout">
           <q-item-side icon="store" />

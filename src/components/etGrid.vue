@@ -117,6 +117,7 @@ export default {
   },
   methods: {
     // ...mapActions('product', ['fetchRecs', 'deleteRecs']),
+    ...mapActions('stock', {fetchRecsStock: 'fetchRecs'}),
     ...mapActions({
       fetchRecs(dispatch, payload) {
         return dispatch(this.type + '/fetchRecs', payload)
@@ -127,6 +128,9 @@ export default {
     }),
     ...mapMutations({
       setEditingRec(dispatch, payload) {
+        if (this.type === 'stockout' && this.getRecsStock.length === 0) {
+          this.fetchRecsStock()
+        }
         return dispatch(this.type + '/setEditingRec', payload)
       },
     }),

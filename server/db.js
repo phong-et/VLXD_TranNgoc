@@ -49,21 +49,29 @@ const Stock = Conn.define('stock',{
   quantity:{type: Sequelize.FLOAT, allowNull: true},
 })
 
-const StockIn = Conn.define('stockin',{
-  //productId:{type: Sequelize.INTEGER, allowNull: false},
-  //supplierId:{type: Sequelize.INTEGER, allowNull: false},
-  price:{type: Sequelize.INTEGER, allowNull: true},
-  quantity:{type: Sequelize.FLOAT, allowNull: true},
-})
-
 const StockOut = Conn.define('stockout',{
   //stockId:{type: Sequelize.INTEGER, allowNull: false},
   quantity:{type: Sequelize.FLOAT, allowNull: true},
 })
 
-Product.hasMany(Stock)
-Product.hasMany(StockIn)
-Stock.hasMany(StockOut)
+// const StockIn = Conn.define('stockin',{
+//   //productId:{type: Sequelize.INTEGER, allowNull: false},
+//   //supplierId:{type: Sequelize.INTEGER, allowNull: false},
+//   price:{type: Sequelize.INTEGER, allowNull: true},
+//   quantity:{type: Sequelize.FLOAT, allowNull: true},
+// })
+
+// Product.hasMany(Stock)
+// Product.hasMany(StockIn)
+// Stock.hasMany(StockOut)
+
+Stock.belongsTo(Product, {
+  foreignKey: 'productId'
+})
+
+StockOut.belongsTo(Stock, {
+  foreignKey: 'stockId'
+})
 
 Conn.authenticate()
 //Conn.sync({force: true})
@@ -100,13 +108,13 @@ Conn.authenticate()
 //     })
 //   })
 
-//   console.log('DB Structure created ...')
-//   _d.times(100, () => {
-//     return StockIn.create({
-//       price:Faker.commerce.price(),
-//       quantity:Faker.random.number(),
-//     })
-//   })
+//   // console.log('DB Structure created ...')
+//   // _d.times(100, () => {
+//   //   return StockIn.create({
+//   //     price:Faker.commerce.price(),
+//   //     quantity:Faker.random.number(),
+//   //   })
+//   // })
   
 //   console.log('DB Structure created ...')
 //   _d.times(100, () => {

@@ -128,7 +128,7 @@ export default {
     }),
     ...mapMutations({
       setEditingRec(dispatch, payload) {
-        if (this.type === 'stockout' && this.getRecsStock.length === 0) {
+        if (this.type === 'stockout') {
           this.fetchRecsStock()
         }
         return dispatch(this.type + '/setEditingRec', payload)

@@ -23,7 +23,7 @@
             <div class="col-xs-12 col-md-7">
                 <q-select filter  stack-label="Sản phẩm" placeholder="Nhập tên sản phẩm cần tìm"
                   v-model="selectedProduct"
-                  :options="getRecsStock"
+                  :options="getRecsStock.map(opt => ({label: opt.productName, value: opt.productId }))"
                 />
             </div>
             <div class="col-xs-12 col-md-2">

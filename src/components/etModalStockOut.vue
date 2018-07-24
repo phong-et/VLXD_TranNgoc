@@ -22,29 +22,45 @@
           <div class="row gutter-x-sm gutter-y-lg" >
             <div class="col-xs-12 col-md-7">
                 <q-select filter  stack-label="Sản phẩm" placeholder="Nhập tên sản phẩm cần tìm"
-                  v-model="selectedProduct"
-                  :options="getRecsStock.map(opt => ({label: opt.productName, value: opt.productId }))"
+                  @input="selectProduct"
+                   v-model="selectedProduct"
+                  :options="getRecsStock.map(opt => ({label: opt.productName, value: opt, stamp:opt.quantity.toString()}))"
                 />
             </div>
             <div class="col-xs-12 col-md-2">
-              <q-input type="number" v-model="quantity" stack-label="Số lượng còn" />
+              <q-input type="number" v-model="quantity" stack-label="SL còn" />
             </div>
             <div class="col-xs-12 col-md-2">
                 <q-field :error="isLimitedQuantity" error-label="Số lượng xuất vượt mức kho">
-                  <q-input type="number" v-model="quantityOut" stack-label="Số lượng xuất" color="amber"  />
+                  <q-input type="number" v-model="quantityOut" stack-label="SL xuất" color="amber"  />
                 </q-field>
             </div>
              <div class="col-md-1">
                 <q-btn color="green">
-                    <q-icon name="add" size="25px"/>
+                    <q-icon @click.native="addProduct(selectedProduct)" name="add" size="25px"/>
                     <q-spinner-pie slot="loading" size="25px"/>
                 </q-btn>
             </div>
           </div>
         </div>
-    </q-modal-layout>
-  </q-modal>
-</template>
+        <q-table
+          :data="stockOutProduct"
+          :columns="cols"
+          table-class="et-grid"
+          dense
+          color="purple"
+          separator="cell"
+          class="layout-padding"
+        >
+          <!-- slot name syntax: body-cell-<column_name> -->
+          <q-td slot="body-cell-productId" auto-width slot-scope="props" :props="props">
+             <q-btn size="sm" round dense color="negative" icon="remove" @click="deleteProduct(props.row.productId)" class="q-mr-xs" />
+          </q-td>
+
+        </q-table>
+      </q-modal-layout>
+    </q-modal>
+  </template>
 
 <script>
 import {mapState, mapActions, mapMutations, mapGetters} from 'vuex'
@@ -57,9 +73,34 @@ export default {
   },
   data() {
     return {
-      selectedProduct: '',
+      selectedProduct: {},
+      stockOutProduct: [],
       quantity: 0,
       quantityOut: 0,
+      // grid stockout product
+      cols: [
+        {
+          name: 'productName',
+          label: 'Tên Sản Phẩm',
+          align: 'left',
+          field: 'productName',
+          sortable: true,
+        },
+        {
+          name: 'quantityOut',
+          label: 'Số lượng',
+          align: 'left',
+          field: 'quantityOut',
+          sortable: true,
+        },
+        {
+          name: 'productId',
+          label: 'Xóa',
+          align: 'left',
+          field: 'productId',
+          sortable: true,
+        },
+      ],
     }
   },
   computed: {
@@ -99,6 +140,35 @@ export default {
         return dispatch(this.type + '/discardEditingRec', payload)
       },
     }),
+    selectProduct(val) {
+      this.quantity = val.quantity
+    },
+    deleteProduct(productId) {
+      var stockOutProduct = this.stockOutProduct
+      // stockOutProduct = stockOutProduct.filter(function(product) {
+      //   return product.productId !== productId
+      // })
+      stockOutProduct.splice(stockOutProduct.findIndex(product => product.productId === productId), 1)
+    },
+    isExist(product) {
+      // return this.stockOutProduct.find(function(p) {
+      //   return p.productId === product.productId
+      // })
+      return this.stockOutProduct.findIndex(p => p.productId === product.productId)
+    },
+    addProduct(product) {
+      if (product !== {} && this.quantityOut > 0 && this.quantityOut <= this.quantity) {
+        product.quantityOut = this.quantityOut
+        var index = this.isExist(product)
+        if (index === -1) {
+          this.stockOutProduct.push(product)
+        } else {
+          product.quantityOut += this.stockOutProduct[index].quantityOut
+          this.deleteProduct(product.productId)
+          this.stockOutProduct.push(product)
+        }
+      }
+    },
   },
 }
 </script>

@@ -23,7 +23,7 @@ export default {
             {
               model: models.product,
               required: true,
-              attributes: [['name', 'productName']],
+              attributes: [['name', 'productname']],
             },
           ],
         }

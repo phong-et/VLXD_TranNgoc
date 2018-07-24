@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLInputObjectType, GraphQLInt, GraphQLFloat, GraphQLNonNull} from 'graphql'
+import {GraphQLObjectType, GraphQLInputObjectType, GraphQLInt, GraphQLFloat, GraphQLString, GraphQLNonNull} from 'graphql'
 
 export const Stock = new GraphQLObjectType({
   name: 'Stock',
@@ -17,6 +17,12 @@ export const Stock = new GraphQLObjectType({
         description: 'ProductId',
         resolve(stock) {
           return stock.productId
+        },
+      },
+      productName: {
+        type: GraphQLString,
+        resolve(stock) {
+          return stock.product.get('productname')
         },
       },
       price: {

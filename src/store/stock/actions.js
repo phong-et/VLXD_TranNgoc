@@ -9,6 +9,7 @@ export const fetchRecs = ({commit}) => {
       productId
       price
       quantity
+      productName
     }
   }`)
     .then(({data}) => {

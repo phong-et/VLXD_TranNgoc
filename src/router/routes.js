@@ -4,6 +4,7 @@ import loginLayout from 'layouts/login'
 import pgProducts from 'pages/products'
 import pgSuppliers from 'pages/suppliers'
 import pgUsers from 'pages/users'
+import pgStock from 'pages/stock'
 
 export default [
   {
@@ -28,6 +29,11 @@ export default [
       {
         path: 'users',
         component: pgUsers,
+        meta: {requiresAuth: true},
+      },
+      {
+        path: 'stock',
+        component: pgStock,
         meta: {requiresAuth: true},
       },
     ],

@@ -35,6 +35,14 @@
           <q-item-side icon="security" />
           <q-item-main label="Tài Khoản Đăng Nhập" sublabel="Liệt Kê & Tìm Kiếm Tài Khoản" />
         </q-item>
+         <q-item to="/stock">
+          <q-item-side icon="store" />
+          <q-item-main label="Kho" sublabel="Quản Lý Kho" />
+        </q-item>
+        <q-item to="/stockout">
+          <q-item-side icon="store" />
+          <q-item-main label="Xuất Kho" sublabel="Quản Lý Xuất Kho" />
+        </q-item>
       </q-list>
     </q-layout-drawer>
 

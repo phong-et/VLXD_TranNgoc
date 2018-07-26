@@ -9,6 +9,7 @@ const Stock = `
   input StockInput {
     id: Int
     productId: Int
+    productName: String
     price: Int
     quantity: Float
   }

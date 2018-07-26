@@ -8,8 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      productId: {
-        type: Sequelize.STRING
+      price: {
+        type: Sequelize.INTEGER
+      },
+      quantity: {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,

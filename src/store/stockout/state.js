@@ -24,10 +24,17 @@ export default {
       sortable: true,
     },
     {
-      name: 'stockId',
-      label: 'Mã Kho',
+      name: 'productId',
+      label: 'Mã sản phẩm',
       align: 'left',
-      field: 'stockId',
+      field: 'productId',
+      sortable: true,
+    },
+    {
+      name: 'productName',
+      label: 'Tên sản phẩm',
+      align: 'left',
+      field: 'productName',
       sortable: true,
     },
     {
@@ -44,10 +51,18 @@ export default {
       hidden: true,
     },
     {
-      name: 'stockId',
-      label: 'Mã Kho',
-      type: 'text',
-      icon: 'outlined_flag',
+      name: 'productId',
+      label: 'Mã sản phẩm',
+      align: 'left',
+      field: 'productId',
+      sortable: true,
+    },
+    {
+      name: 'productName',
+      label: 'Tên sản phẩm',
+      align: 'left',
+      field: 'productName',
+      sortable: true,
     },
     {
       name: 'quantity',

@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
   var Stock = sequelize.define(
-    'stock',
+    'Stock',
     {
       productId: DataTypes.INTEGER,
       price: DataTypes.INTEGER,
@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
   )
   Stock.associate = function(models) {
     // associations can be defined here
-    Stock.belongsTo(models.product);
+    Stock.belongsTo(models.Product, {
+      foreignKey: 'productId',
+    })
   }
   return Stock
 }

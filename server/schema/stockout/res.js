@@ -1,22 +1,22 @@
-import {stockout} from '../../models'
-import {product} from '../../models'
+import {StockOut} from '../../models'
+import {Product} from '../../models'
 import {_auth} from '../../util'
 const resolvers = {
   RootQuery: {
     async listStockOut(_, __, {authUser}) {
       _auth(authUser)
       return await 
-      stockout.findAll(
+      StockOut.findAll(
         {
           include: [
             {
-              model: product,
+              model: Product,
               required: true,
             },
           ],
         }
-      ).then((stockout) =>{
-        return stockout.map((listStockOut)=>{
+      ).then((StockOut) =>{
+        return StockOut.map((listStockOut)=>{
           const productName = listStockOut.getProduct().get('name')
           return Object.assign(listStockOut.get(),{
             productName:productName
@@ -26,9 +26,9 @@ const resolvers = {
     },
   },
   RootMutation: {
-    async deleteStock(_, {input}, {authUser}) {
+    async deleteStockOut(_, {input}, {authUser}) {
       _auth(authUser)
-      return await stockout.destroy({
+      return await StockOut.destroy({
         where: {
           id: {
             $in: input,
@@ -38,7 +38,7 @@ const resolvers = {
     },
     async updateStock(_, {input}, {authUser}) {
       _auth(authUser)
-      return await stockout.upsert(input).then(() => {
+      return await StockOut.upsert(input).then(() => {
         return input
       })
     },

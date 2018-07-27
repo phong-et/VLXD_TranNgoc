@@ -1,5 +1,5 @@
-import {stock} from '../../models'
-import {product} from '../../models'
+import {Stock} from '../../models'
+import {Product} from '../../models'
 import {_auth} from '../../util'
 const resolvers = {
   RootQuery: {
@@ -12,18 +12,18 @@ const resolvers = {
       //   // We don't need spread here, since only the results will be returned for select queries
       //   return stocks
       // })
-      stock.findAll(
+      Stock.findAll(
         {
           include: [
             {
-              model: product,
+              model: Product,
               required: true,
               // attributes: [['name', 'productname']],
             },
           ],
         }
-      ).then((stock) =>{
-        return stock.map((listStock)=>{
+      ).then((Stock) =>{
+        return Stock.map((listStock)=>{
           const productName = listStock.getProduct().get('name')
           return Object.assign(listStock.get(),{
             productName:productName

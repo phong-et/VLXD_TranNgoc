@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
   var StockOut = sequelize.define(
-    'stockout',
+    'StockOut',
     {
       quantity: DataTypes.FLOAT,
     },
@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
   )
   StockOut.associate = function(models) {
     // associations can be defined here
-    StockOut.belongsTo(models.product);
+    StockOut.belongsTo(models.Product, {
+      foreignKey: 'productId',
+    })
   }
   return StockOut
 }

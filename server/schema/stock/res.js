@@ -1,19 +1,34 @@
-import {Stock} from '../../models'
-import {Product} from '../../models'
+import {stock} from '../../models'
+import {product} from '../../models'
 import {_auth} from '../../util'
-
 const resolvers = {
   RootQuery: {
     async listStock(_, __, {authUser}) {
       _auth(authUser)
-      return await Stock.findAll({
-        include: [
-          {
-            model: Product,
-            required: true,
-            attributes: [['name', 'productName']],
-          },
-        ],
+      return await 
+      // import {sequelize} from '../../models'
+      // sequelize.query("SELECT * FROM stocks, products WHERE stocks.productId = products.id", { type: sequelize.QueryTypes.SELECT})
+      // .then(stocks => {
+      //   // We don't need spread here, since only the results will be returned for select queries
+      //   return stocks
+      // })
+      stock.findAll(
+        {
+          include: [
+            {
+              model: product,
+              required: true,
+              // attributes: [['name', 'productname']],
+            },
+          ],
+        }
+      ).then((stock) =>{
+        return stock.map((listStock)=>{
+          const productName = listStock.getProduct().get('name')
+          return Object.assign(listStock.get(),{
+            productName:productName
+          })
+        })
       })
     },
   },

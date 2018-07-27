@@ -5,7 +5,7 @@ import product from './product'
 import supplier from './supplier'
 import user from './user'
 import stock from './stock'
-
+import stockout from './stockout'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -14,6 +14,7 @@ const store = new Vuex.Store({
     supplier,
     user,
     stock,
+    stockout,
   },
 })
 

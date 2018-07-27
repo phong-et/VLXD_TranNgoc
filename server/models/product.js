@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
   var Product = sequelize.define(
-    'Product',
+    'product',
     {
       code: DataTypes.STRING,
       name: DataTypes.STRING,
@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   )
   Product.associate = function(models) {
     // associations can be defined here
+    // Product.hasMany(models.stock);
+    // Product.hasMany(models.stockout);
   }
   return Product
 }

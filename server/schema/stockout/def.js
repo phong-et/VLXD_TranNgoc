@@ -1,17 +1,14 @@
-const Stock = `
-  type Stock {
+const StockOut = `
+  type StockOut {
     id: Int
     productId: Int
     productName: String
-    price: Int
     quantity: Float
   }
-  input StockInput {
+  input StockOutInput {
     id: Int
     productId: Int
-    name: String
-    price: Int
     quantity: Float
   }
 `
-export default Stock
+export default StockOut

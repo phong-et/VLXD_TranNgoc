@@ -5,7 +5,7 @@ import pgProducts from 'pages/products'
 import pgSuppliers from 'pages/suppliers'
 import pgUsers from 'pages/users'
 import pgStock from 'pages/stock'
-
+import pgStockOut from 'pages/stockout'
 export default [
   {
     path: '/login',
@@ -32,8 +32,13 @@ export default [
         meta: {requiresAuth: true},
       },
       {
-        path: 'stock',
+        path: 'stocks',
         component: pgStock,
+        meta: {requiresAuth: true},
+      },
+      {
+        path: 'stockouts',
+        component: pgStockOut,
         meta: {requiresAuth: true},
       },
     ],

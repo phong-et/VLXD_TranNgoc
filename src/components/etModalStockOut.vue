@@ -144,25 +144,52 @@ export default {
     deleteProduct(product, isRehabilitatedQuantity) {
       var stockOutProducts = this.stockOutProducts
       if (isRehabilitatedQuantity) {
-        this.quantity = this.quantity + product.quantityOut
+        // adjust quantity on layout when delete same selected product
+        if (product.productId === this.selectedProduct.productId) {
+          this.quantity = this.quantity + product.quantityOut
+        }
+        // adjust quantiy on store when delete product on grid (StockOutProduct)
+        var indexProduct = this.isExistInStock(product)
+        var stock = this.$store.getters['stock' + '/getRecs']
+        if (indexProduct > -1) {
+          stock[indexProduct].quantity = stock[indexProduct].quantity + product.quantityOut
+          this.$store.commit('stock' + '/setRecs', _d.clone(stock))
+        }
       }
+      // delete product on gird ( StockOutProduct)
       stockOutProducts.splice(stockOutProducts.findIndex(p => p.productId === product.productId), 1)
     },
+
     isExist(product) {
       return this.stockOutProducts.findIndex(p => p.productId === product.productId)
     },
+
+    isExistInStock(product) {
+      var stock = this.$store.getters['stock' + '/getRecs']
+      return stock.findIndex(p => p.productId === product.productId)
+    },
+
     addProduct(product) {
       if (product !== {} && this.quantityOut > 0 && this.quantityOut <= this.quantity) {
         product.quantityOut = this.quantityOut
         var index = this.isExist(product)
+        // add new product on gird
         if (index === -1) {
           this.stockOutProducts.push(product)
         } else {
+          // update quantity product on gird
           product.quantityOut = this.stockOutProducts[index].quantityOut + this.quantityOut
           this.deleteProduct(product)
           this.stockOutProducts.push(_d.clone(product))
         }
         this.quantity = this.quantity - this.quantityOut
+        // update quantity in stock(dropdownlist)
+        var indexProduct = this.isExistInStock(product)
+        var stock = this.$store.getters['stock' + '/getRecs']
+        if (indexProduct > -1) {
+          stock[indexProduct].quantity = this.quantity
+          this.$store.commit('stock' + '/setRecs', _d.clone(stock))
+        }
       }
     },
   },
